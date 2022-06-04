@@ -9,7 +9,7 @@ namespace DashboardApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Asignment",
+                name: "Assignment",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -19,14 +19,14 @@ namespace DashboardApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("Pk_Asignment", x => x.Id);
+                    table.PrimaryKey("Pk_Assignment", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Asignment");
+                name: "Assignment");
         }
     }
 }

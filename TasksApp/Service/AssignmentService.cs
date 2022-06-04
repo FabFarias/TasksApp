@@ -15,7 +15,7 @@ namespace DashboardApp.Service
 
         public async Task Create(DTOs.CreateAssignmentDTO createAssignment)
         {
-            await _dbContext.Assignments.AddAsync(new Models.Assignments.Assignment()
+            await _dbContext.Assignment.AddAsync(new Models.Assignments.Assignment()
             {
                 Description = createAssignment.Description,
                 Date = createAssignment.Date
@@ -28,7 +28,7 @@ namespace DashboardApp.Service
             if (startDate > endDate)
                 throw new Exception("Data final deve ser maior que a data inicial.");
 
-            var itens = await _dbContext.Assignments.Where(e => e.Date >= startDate && e.Date <= endDate).AsNoTracking()
+            var itens = await _dbContext.Assignment.Where(e => e.Date >= startDate && e.Date <= endDate).AsNoTracking()
                 .ToListAsync();
 
             return itens;

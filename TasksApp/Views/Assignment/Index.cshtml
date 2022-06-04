@@ -1,8 +1,73 @@
-﻿@{
+﻿@model DashboardApp.DTOs.ListAssignmentDTO
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="row">
+    <div class="col-sm">
+        <h1>Tarefas</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <a asp-action="Create" class="btn btn-primary btn-lg btn-block">Nova tarefa</a>
+    </div>
+</div>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input asp-for="StartDate" type="date" placerolder="Digite a data inicial" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">                      
+                <input asp-for="EndDate" type="date" placerolder="Digite a data inicial" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="form-group">
+                 <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+             </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model.Itens.Count > 0)
+                {
+                    foreach(var item in Model.Itens)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Description</td>
+                            <td>@item.Date</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3"> Nenhum registro encontrado.</td></tr>
+                }
+            </tbody>
+       </table>
+    </div>
+</div>
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+</div>*@

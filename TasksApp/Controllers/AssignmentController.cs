@@ -1,4 +1,5 @@
-﻿using DashboardApp.Service;
+﻿using DashboardApp.DTOs;
+using DashboardApp.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TasksApp.Models;
@@ -10,20 +11,66 @@ namespace DashboardApp.Controllers
         private readonly ILogger<AssignmentController> _logger;
         private readonly IAssignmentService _assignmentService;
 
-        public AssignmentController(ILogger<AssignmentController> logger)
+        public AssignmentController(ILogger<AssignmentController> logger,
+            IAssignmentService assignmentService)
         {
             _logger = logger;
+            _assignmentService = assignmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var listAssignmentDTO = new ListAssignmentDTO();
+
+            listAssignmentDTO.Itens = await _assignmentService.FindBy(listAssignmentDTO.StartDate, listAssignmentDTO.EndDate);
+
+            return View(listAssignmentDTO);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Index(ListAssignmentDTO listAssignmentDTO)
         {
-            return View();
+            try
+            {
+                listAssignmentDTO.Itens = await _assignmentService.FindBy(listAssignmentDTO.StartDate, listAssignmentDTO.EndDate);
+
+                return View(listAssignmentDTO);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("CustomError", ex.Message);
+                
+                return View(listAssignmentDTO);
+            }
+            
         }
+
+        public async Task<IActionResult> Create()
+        {
+            var createAssignmentDTO = new CreateAssignmentDTO();
+
+            return View(createAssignmentDTO);
+            /*return RedirectToAction("Index");*/
+        }
+
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateAssignmentDTO createAssignmentDTO)
+        {
+            try
+            {
+                await _assignmentService.Create(createAssignmentDTO);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("CustomError", ex.Message);
+                return View(createAssignmentDTO);
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

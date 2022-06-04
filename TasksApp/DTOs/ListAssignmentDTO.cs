@@ -4,7 +4,13 @@ namespace DashboardApp.DTOs
 {
     public class ListAssignmentDTO
     {
-        public DateTime StarDate { get; set; }
+        public ListAssignmentDTO()
+        {
+            StartDate = DateTime.UtcNow.AddDays(-7);
+            EndDate = DateTime.UtcNow.AddDays(15);
+            Itens = new List<Assignment>();
+        }
+        public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
 

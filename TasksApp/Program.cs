@@ -5,8 +5,7 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AssignmentContext>(
-    /*options => options.UseSqlite(Configuration.GetConnectionString("conString")*/);
+builder.Services.AddDbContext<AssignmentContext>();
 
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
@@ -28,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Assignment}/{action=Index}/{id?}");
 
 app.Run();

@@ -5,18 +5,16 @@ namespace DashboardApp.Infra.Database
 {
     public class AssignmentContext : DbContext
     {
-        public DbSet<Assignment> Assignments { get; set; }
 
-        public AssignmentContext(DbSet<Assignment> assignments)
+        public AssignmentContext()
         {
-            Assignments = assignments;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite("Data Source = AssignmentControl.db");
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            modelBuilder.Entity<Assignment>().HasNoKey();
+            optionsBuilder.UseSqlite("Data Source = AssignmentControl.db");
         }
+
+        public DbSet<Assignment> Assignment { get; set; }
     }
 }

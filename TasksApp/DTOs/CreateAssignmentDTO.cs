@@ -4,10 +4,15 @@ namespace DashboardApp.DTOs
 {
     public class CreateAssignmentDTO
     {
+        public CreateAssignmentDTO()
+        {
+            Date = DateTime.Now;
+        }
+
         [Required(ErrorMessage = "Descrição é obrigatória.")]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Data é obrigatória.")]
-        public DateTime Data { get; set; }
+        public DateTime Date { get; set; }
     }
 }
