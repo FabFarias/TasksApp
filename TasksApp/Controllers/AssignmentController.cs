@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DashboardApp.Service;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TasksApp.Models;
 
-namespace TasksApp.Controllers
+namespace DashboardApp.Controllers
 {
-    public class HomeController : Controller
+    public class AssignmentController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<AssignmentController> _logger;
+        private readonly IAssignmentService _assignmentService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public AssignmentController(ILogger<AssignmentController> logger)
         {
             _logger = logger;
         }

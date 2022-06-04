@@ -1,4 +1,14 @@
+using DashboardApp.Infra.Database;
+using DashboardApp.Service;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AssignmentContext>(
+    /*options => options.UseSqlite(Configuration.GetConnectionString("conString")*/);
+
+builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
